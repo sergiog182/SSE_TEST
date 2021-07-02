@@ -76,11 +76,11 @@ El README de complementarse para indicar como correr las pruebas unitarias y con
 
 |Artefacto   |Ponderación   |
 |---|---|
-|Implementación Requerimientos funcionales   |40   |
+|Implementación   |60   |
 |Historial de Commits   |5   |
-|Readme   |10   |
-|Pruebas Unitarias|30|
-|Despliegue        |15|
+|Documentación   |15   |
+|Pruebas |20|
+
 
 Para presentar la prueba hacer fork de este proyecto y finalmente un pull request para una rama con tu nombre.
 
