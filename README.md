@@ -27,7 +27,7 @@ En la carpeta de [data](data/dominios.txt)
 
 Muchos dominios vienen en caracteres americanos, pero aquellos que no usan una codificación llamada punycode. En línea hay conversores de esta información [ejemplo](https://www.punycoder.com/).
 
-**Revise el diagrama:** [flujo general](diagramas/procesoGeneral.txt)
+**Revise el diagrama:** [flujo general](diagramas/procesoGeneral.drawio)
 
 ## Requerimiento Funcional
 
@@ -76,10 +76,9 @@ El README de complementarse para indicar como correr las pruebas unitarias y con
 
 |Artefacto   |Ponderación   |
 |---|---|
-|Implementación Requerimientos funcionales   |30   |
+|Implementación Requerimientos funcionales   |40   |
 |Historial de Commits   |5   |
 |Readme   |10   |
-|Jenkinsfile  |10|
 |Pruebas Unitarias|30|
 |Despliegue        |15|
 
