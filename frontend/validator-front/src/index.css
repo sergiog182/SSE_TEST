@@ -1,0 +1,181 @@
+body {
+    font: 14px "Century Gothic", Futura, sans-serif;
+    margin: 20px;
+}
+  
+.main-container
+{
+    border-color: black;
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+}
+
+.main-menu
+{
+    height: 50px;
+    width: 100%;
+    background-color: black;
+    color: white;
+}
+
+.menu-item
+{
+    float: left;
+    padding: 15px;
+    box-sizing: content-box;
+    margin-left: 5px;
+    cursor: pointer;
+}
+
+.selected
+{
+    background-color: rgb(77, 73, 73);
+}
+
+.menu-item:hover
+{
+    background-color: rgb(77, 73, 73);
+}
+
+.frame {
+    border: 1px solid black;
+    margin: 40px;
+    height: calc(100% - 132px);
+    box-sizing: content-box;
+    background-color: rgb(236, 238, 240);
+}
+
+.article-list
+{
+    width: 120px;
+    margin: 10px;
+    border: 1px solid black;
+    box-sizing: content-box;
+    height: calc(100% - 20px);
+    overflow-y: auto;
+    float:left;
+    background-color: rgb(236, 238, 240);
+}
+
+.article
+{
+    width: 95%;
+    height: 120px;
+    border-bottom: 1px solid black;
+    cursor: pointer;
+    text-align: center;
+    background-color: rgb(236, 238, 240);
+}
+
+.article-preview
+{
+    box-sizing: content-box;
+    width: calc(100% - 165px);
+    height: calc(100% - 20px);
+    margin: 10px;
+    float: left;
+    background-color: rgb(236, 238, 240);
+}
+ 
+.image-container
+{
+    float: left;
+    box-sizing: content-box;
+    width: calc(50% - 1px);
+    height: 100%;
+    align-content: center;
+    text-align: center;
+    border-right: 1px solid black;
+    background-color: rgb(236, 238, 240);
+}
+
+.add-form
+{
+    float: left;
+    box-sizing: content-box;
+    width: 50%;
+    height: 100%;
+    align-content: center;
+    text-align: center;
+    background-color: rgb(236, 238, 240);
+}
+
+.small-size-image
+{
+    height: 50%;
+}
+
+.big-size-image
+{
+    height: 100%;
+}
+
+.image-basket
+{
+    height: 200px;
+}
+
+.main-form
+{
+    width: 100%;
+}
+
+.selector
+{
+    width: 138px;
+    border: 2px solid black
+}
+
+.btn-form
+{
+    width: 200px;
+    height: 50px;
+    background-color: black;
+    color: white;
+}
+
+.loading-container
+{
+    background-color: rgba(0, 0, 0, 0.5);
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    z-index: 10;
+    display: none;
+    text-align: center;
+}
+
+.active
+{
+    display: block;
+}
+
+.basket-container
+{
+    overflow-y: auto;
+}
+
+.basket-article
+{
+    text-align: center;
+    width: 80%;
+    border: 1px solid black;
+    margin-left: 10%;
+    margin-top: 10px;
+}
+
+.btn-remove
+{
+    width: 200px;
+    height: 50px;
+    background-color: red;
+    color: white;
+}
+
+.align-center
+{
+    text-align: center;
+}

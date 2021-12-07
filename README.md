@@ -1,9 +1,9 @@
 ![Appgate Header](media/header.png)
 ## Prueba Técnica.
 
-**Nombre:** _____________
+**Nombre:** Sergio Alejandro Gutierrez Sanchez
 
-**Cargo:**  _____________
+**Cargo:**  Senior Software Engineer
 
 ### Ambiente de desarrollo
 
