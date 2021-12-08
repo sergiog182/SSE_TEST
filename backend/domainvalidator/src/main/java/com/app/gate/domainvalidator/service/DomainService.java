@@ -9,6 +9,8 @@ public interface DomainService {
 
     public Domain findDomain(int id);
 
+    public Domain searchDomain(String name);
+
     public List<Domain> findAllDomains();
 
     public int uploadFile(MultipartFile file);

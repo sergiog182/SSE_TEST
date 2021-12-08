@@ -23,6 +23,15 @@ public class MainController {
         return service.findDomain(id);
     }
 
+    @GetMapping("search/{name}")
+    public Domain getDomainByName(@PathVariable String name, HttpServletResponse response) {
+        Domain domain = service.searchDomain(name);
+        if (domain == null) {
+            response.setStatus(204);
+        }
+        return domain;
+    }
+
     @GetMapping("/")
     public List<Domain> getAllDomains() {
         return service.findAllDomains();

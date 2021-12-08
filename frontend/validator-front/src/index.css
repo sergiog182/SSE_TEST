@@ -48,29 +48,7 @@ body {
     background-color: rgb(236, 238, 240);
 }
 
-.article-list
-{
-    width: 120px;
-    margin: 10px;
-    border: 1px solid black;
-    box-sizing: content-box;
-    height: calc(100% - 20px);
-    overflow-y: auto;
-    float:left;
-    background-color: rgb(236, 238, 240);
-}
-
-.article
-{
-    width: 95%;
-    height: 120px;
-    border-bottom: 1px solid black;
-    cursor: pointer;
-    text-align: center;
-    background-color: rgb(236, 238, 240);
-}
-
-.article-preview
+.form-preview
 {
     box-sizing: content-box;
     width: calc(100% - 165px);
@@ -92,7 +70,7 @@ body {
     background-color: rgb(236, 238, 240);
 }
 
-.add-form
+.validate-result
 {
     float: left;
     box-sizing: content-box;
@@ -101,6 +79,7 @@ body {
     align-content: center;
     text-align: center;
     background-color: rgb(236, 238, 240);
+    overflow-y: auto ;
 }
 
 .small-size-image
@@ -111,11 +90,6 @@ body {
 .big-size-image
 {
     height: 100%;
-}
-
-.image-basket
-{
-    height: 200px;
 }
 
 .main-form
@@ -153,20 +127,6 @@ body {
     display: block;
 }
 
-.basket-container
-{
-    overflow-y: auto;
-}
-
-.basket-article
-{
-    text-align: center;
-    width: 80%;
-    border: 1px solid black;
-    margin-left: 10%;
-    margin-top: 10px;
-}
-
 .btn-remove
 {
     width: 200px;
@@ -178,4 +138,23 @@ body {
 .align-center
 {
     text-align: center;
+}
+
+.table-info
+{
+    width: 80%;
+    align-self: center;
+    border: 1px solid;
+}
+
+.input-container
+{
+    padding: 5px;
+    text-align: left;
+    margin-left: 40px;
+}
+
+.hidden
+{
+    display: none;
 }

@@ -124,4 +124,9 @@ public class DomainServiceImpl implements DomainService {
 
         return response;
     }
+
+    @Override
+    public Domain searchDomain(String name) {
+        return domainRepo.findByDomain(name);
+    }
 }

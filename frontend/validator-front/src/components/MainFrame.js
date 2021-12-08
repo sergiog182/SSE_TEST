@@ -1,6 +1,6 @@
 import React from 'react';
 import FrameValidate from './FrameValidate';
-import FrameBucket from './FrameBucket';
+import FrameSearch from './FrameSearch';
 import Menu from './Menu'
 
 class MainFrame extends React.Component {
@@ -20,7 +20,6 @@ class MainFrame extends React.Component {
     render() {
         const view = this.state.view;
         const srcloading = require('../assets/images/loading.gif').default;
-        console.log("Imagen :: " + srcloading);
         
         if (view === 'validateDomain') {
             return(
@@ -39,7 +38,7 @@ class MainFrame extends React.Component {
                         <img src={srcloading} alt="loading" />
                     </div>
                     <Menu selected='searchDomain'click={this.handleChangeMenu}/>
-                    <FrameBucket />
+                    <FrameSearch />
                 </div>
             );
         } else {
@@ -49,7 +48,7 @@ class MainFrame extends React.Component {
                         <img src={srcloading} alt="loading" />
                     </div>
                     <Menu selected='searchDomain'click={this.handleChangeMenu}/>
-                    <FrameBucket />
+                    <FrameSearch />
                 </div>
             );
         }
