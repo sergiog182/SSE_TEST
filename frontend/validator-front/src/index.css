@@ -158,3 +158,9 @@ body {
 {
     display: none;
 }
+
+.info-div
+{
+    text-align: left;
+    padding: 10px;
+}

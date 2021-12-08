@@ -1,6 +1,7 @@
 import React from 'react';
 import FrameValidate from './FrameValidate';
 import FrameSearch from './FrameSearch';
+import FrameUpload from './FrameUpload';
 import Menu from './Menu'
 
 class MainFrame extends React.Component {
@@ -47,8 +48,8 @@ class MainFrame extends React.Component {
                     <div id="loader" className="loading-container">
                         <img src={srcloading} alt="loading" />
                     </div>
-                    <Menu selected='searchDomain'click={this.handleChangeMenu}/>
-                    <FrameSearch />
+                    <Menu selected='uploadDomains'click={this.handleChangeMenu}/>
+                    <FrameUpload />
                 </div>
             );
         }

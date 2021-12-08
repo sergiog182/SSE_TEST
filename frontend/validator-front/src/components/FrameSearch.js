@@ -100,7 +100,7 @@ class FrameSearch extends React.Component {
                             </div>
                         </div>
                         <div className="validate-result">
-                            <h1>Found domians</h1>
+                            <h1>Found domian</h1>
                             
                             <div className="main-form">
                                 <div className="input-container">
