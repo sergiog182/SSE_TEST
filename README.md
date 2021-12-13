@@ -5,82 +5,143 @@
 
 **Cargo:**  Senior Software Engineer
 
-### Ambiente de desarrollo
+## Como construirlo o empaquetarlo
 
-Esta prueba técnica hace uso de [devcontainers](https://code.visualstudio.com/docs/remote/create-dev-container) de vs-code. Principalmente para facilitar el uso del IDE con el pluging de diagramas de draw.io, Java 11 y Node JS. La solucinón puede ser codificada en cualquiera de estas tecnologías.
+Para construir la aplicación, es necesario montar la imagen de postgres con la base de datos:
 
-Usted puede usar el IDE de su elección.
-
-### ¿Qué esperamos de la prueba?
-
-Evaluaremos patrones de diseño, prácticas de codificación, forma de despliegue. Por supuesto cumplir el requerimiento funcional es importante, pero para el cargo al que aspiras es muy necesario las otras cosas.
-
-## Contexto.
-
-Los atacantes usan domino con caracteres especiales a fin de confundir a los usuarios finales.
-
-Por Ejemplo Neko Bank cuyo dominio es **nekobank.com** se le puede crear un dominio similar **лекobank.com**.
-
-Nuestro servicio posee una base datos de información muy amplia para detectar este tipo de casos comparando los dominios de nuestros clientes sin TLD contra los dominios que se registran día a día y reportamos a ellos si hay dominios similares o que contengan su marca (dominio sin TLD) en el domino.
-
-En la carpeta de [data](data/dominios.txt)
-
-Muchos dominios vienen en caracteres americanos, pero aquellos que no usan una codificación llamada punycode. En línea hay conversores de esta información [ejemplo](https://www.punycoder.com/).
-
-**Revise el diagrama:** [flujo general](diagramas/procesoGeneral.drawio)
-
-## Requerimiento Funcional
-
-**RF1:** Nuestro cliente Bancolombia quiere detectar dominios similares potencialmente peligrosos para phishing.
-
-Dominios a proteger:  bancolombia.com y bancolombia.com.co
-
-Ustede debe realizar la busqueda de dominios similares en el archivo dado y guardar en un formato json como el siguiente los encontrados
-
-```json
-{
-    dominio:"bancolombia.com",
-    dominios_similares:[],
-    dominios_sim_punycode:[]
-}
+```
+ cd SSE_TEST/postgres-db
+ docker build -t my-postgres-db .
+ docker run -d --name postgres-db -it -p 5432:5432 my-postgres-db
 ```
 
----
+Una vez la base de datos esté lista, se debe ejecutar en primera instancia el proyecto domainvalidator escrito en spring boot:
 
-**RF2:** Como Agente de soporte nivel2, quiero tener una base de datos para buscar dominios que los clientes nos repotan como no detectados para
-saber si efectivamente fue procesado por nosotros.
+> :warning: Se debe modificar la propiedad **spring.datasource.url** y debe tener el valor de **jdbc:postgresql://localhost:5432/domains**
 
----
+```
+ cd SSE_TEST/domainvalidator
+ mvn clean install
+ mvn spring-boot:run
+```
 
-**RF3:** Como Agente de soporte nivel1, necesito un medio gráfico de consulta para buscar dominios que los clientes nos reportan como no detectados.(elabora fronted y backend)
+Finalmente se debe iniciar la aplicación validator-front escrita en react js:
 
-## Requerimientos no Funcionales.
+```
+ cd SSE_TEST/validator-front
+ npm install
+ npm start
+```
 
-La empresa procesa cerca 50.000 archivos de este estilo diariamente para un promedio diario de 500.000 dominios la solución debe estar pensada escalar y soportar cargas similares o mayores.
+## Como dockerizarlo o construir la imagen de docker
 
-La base de datos para las personas de soporte debe ser un **postgresql** el cual puede instalar en el [Dockerfile](.devcontainer/Dockerfile)
+### De forma individual
 
-La entrega se debe hacer por medio de github público que podamos consultar.
+Para dockerizar la solución se debe ejecutar el archivo dockerfile de cada una de las partes que intervienen en el proyecto:
 
-El README de complementarse para indicar como correr las pruebas unitarias y contener lo siguiente:
+> :warning: **Se deben mantener los nombres y la red de cada contenedor**
 
-        ◦ Como construirlo o empaquetarlo
-        ◦ Como dockerizarlo o construir la imagen de docker
-        ◦ Como ejecutar sus pruebas
-        ◦ Como ejecutar el contenedor de Docker
-        ◦ CURL para utilizar API
-        ◦ Genere un diagrama de arquitectura de la solución 
-        ◦ Un diagrama de como seria la estrategia de CI/CD que usted propone
+Si la red no está creada, ejecutar primero este comando
 
-# Entregables
+```
+ docker network create appgate-network
+```
 
-|Artefacto   |Ponderación   |
-|---|---|
-|Implementación   |60   |
-|Historial de Commits   |5   |
-|Documentación   |15   |
-|Pruebas |20|
+### Postgres DB
 
+Este dockerfile, se encarga de crear un contenedor con la imagen del motor de base de datos postgres, y de ejecutar el script que genera la base de datos utilizada por la solución.
 
-Para presentar la prueba hacer fork de este proyecto y finalmente un pull request para una rama con tu nombre.
+```
+ docker build -t my-postgres-db .
+ docker run -d --name postgres-db -it --network appgate-network -p 5432:5432 my-postgres-db
+```
 
+### Backend
+
+Este dockerfile, se encarga de generar un contenedor con el API construido utilizando spring boot, y el cual se conecta a la base de datos creada anteriormente.
+
+```
+ docker build -t back:app .
+ docker run -d --name backend -it --network appgate-network --rm -p 8080:8080 back:app
+```
+
+Para que la construcción del contenedor funcione, es necesario generar el JAR de la aplicación:
+
+```
+ mvnw.cmd package -DskipTests // comando utilizado en windows
+```
+
+### Frontend
+
+Este dockerfile, se encarga de crear un contenedor con la aplicación web creada con react js, que se encarga de consumir los servicios del API.
+
+```
+ docker build -t front:app .
+ docker run -d --name frontend -it --network appgate-network --rm -p 80:80 front:app
+```
+
+### Utilizando docker-compose
+
+La aplicación está construida pensando en un despliegue más fácil, utilizando docker compose, el archivo necesario se encuentra creado en la raíz del proyecto **docker-compose.yml**, es necesario ejecutar el siguiente comando:
+
+```
+ docker-compose up -d --build
+```
+
+Una vez se termine la ejecución de dicho comando, se instancian todos los contenedores anteriormente mencionados y se encontrarán en la misma red.
+
+!! imagen docker compose !!
+
+### PgAdmin
+
+Adicionalmente, para hacer más fácil la gestión de base de datos, se agregó un contenedor con la imagen de PgAdmin 4, el cual debe ser configurado para agregar el servidor de la base de datos Domain:
+
+!!Imagen Pgadmin 1!!
+
+!!Imagen Pgadmin 2!!
+
+## Como ejecutar sus pruebas
+
+Para ejecutar las pruebas, una vez el ambiente esté funcionando, el primer paso que se debe realizar, es cargar los datos en postgres, para esto se creó la opción en el front **Upload domains** en el cual se solicita un archivo TXT con los dominios que se desean agregar:
+
+!!! Imagen !!!
+
+Después las opciones para buscar dominios similares y buscar dominios exactos, estarán disponibles para ser utilizadas:
+
+!!! Imagen validar dominios !!!
+
+## CURL para utilizar API
+
+Para facilitar el entendimiento del API desarrollada, se utilizó un plugin para generar la documentación swagger de los endpoints creados en el API (http://localhost:8080/swagger-ui.html#/main-controller):
+
+!!! Imagen Swagger !!!
+
+Esto facilita el uso de una herramienta que permita probar servicios REST como postman:
+
+!!! Imagen Postman !!!
+
+## Genere un diagrama de arquitectura de la solución
+
+!!! Imagen arquitectura solución !!!
+
+## Un diagrama de cómo sería la estrategia de CI/CD que usted propone
+
+Para manejar la estrategia de CI/CD, es necesario aclarar que se plante el uso de un repositorio centralizado con GIT, tales como:
+
+- GitHub (https://github.com/)
+- BitBucket (https://bitbucket.org)
+- GitLab (https://about.gitlab.com/)
+
+Y se plantea el uso de la metodologia de trabajo colaborativo GitFlow (https://www.atlassian.com/es/git/tutorials/comparing-workflows/gitflow-workflow):
+
+!!! Imagen GitFlow !!!
+
+Partiendo de estos principios, se plantea el uso de Jenkins para la creación y manejo de los pipeline encargados de dichas tareas, de la siguiente manera:
+
+### CI
+
+Este pipeline será el encargado de tomar los cambios registrados en el repositorio de código, realizar la ejecución de pruebas unitarias, realizar un chequeo de código estático utilizando sonarqube y una vez que se pasen las pruebas y los resultados de sonarqube sean los apropiados se procederá a generar las imágenes de los contenedores con los cambios agregados, estas imágenes deben ser depositadas en un repositorio de imágenes tal como Docker Hub.
+
+### CD
+
+Este pipeline será el encargado de detener los contenedores con la imagen actual que será actualizada, hacer pull de la nueva imagen y montar de nuevo el contenedor con dicha imagen; en este paso también se podrían incluir algunas pruebas de integración con los demás contenedores.
