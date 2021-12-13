@@ -35,7 +35,7 @@ public class DomainDAOImpl implements DomainDAO{
         Domain foundDomain = null;
         try {
             foundDomain = (Domain) em.createNamedQuery("Domains.findByDomain").setParameter("domain", domain).getSingleResult();
-        } catch (NoResultException ex) {
+        } catch (Exception ex) {
             // not found
         }
         return foundDomain;
@@ -143,6 +143,12 @@ public class DomainDAOImpl implements DomainDAO{
 
     @Override
     public int getMaxId() {
-        return (int) em.createNamedQuery("Domains.findMaxId").getSingleResult();
+        int response = 0;
+        try {
+            response = (int) em.createNamedQuery("Domains.findMaxId").getSingleResult();
+        } catch (Exception ex) {
+            // not found
+        }
+        return response;
     }
 }

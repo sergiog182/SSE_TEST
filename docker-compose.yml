@@ -1,0 +1,35 @@
+version: '3'
+
+services:
+
+  #Postgres DB
+  postgres-db:
+    build: ./postgres-db
+    container_name: postgres-db
+    ports:
+      - 5432:5432
+
+  #Springboot API
+  backend:
+    build: ./domainvalidator
+    container_name: backend
+    ports:
+      - 8080:8080
+
+  #React JS frontend
+  frontend:
+    build: ./validator-front
+    container_name: frontend
+    ports:
+      - 80:80
+  
+  #Pgadmin  
+  pgAdmin:
+    image: dpage/pgadmin4
+    container_name: pgadmin4
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=admin@mail.com
+      - PGADMIN_DEFAULT_PASSWORD=mysecretpassword
+    ports:
+      - 8081:80
+      - 443:443

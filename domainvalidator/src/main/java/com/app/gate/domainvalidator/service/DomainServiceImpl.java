@@ -102,23 +102,25 @@ public class DomainServiceImpl implements DomainService {
 
         int maxId = domainRepo.getMaxId();
 
-        if (validatedDomain == null) {
-            validatedDomain = new ValidatedDomain();
-            validatedDomain.setDomainString(domain);
-            validatedDomain.setSimilarDomains(String.join(";;",response.getDominios_similares()));
-            System.out.println(response.getDominios_sim_punycode());
-            System.out.println(String.join(";;",response.getDominios_sim_punycode()));
-            validatedDomain.setSimilarDomainsPuny(String.join(";;",response.getDominios_sim_punycode()));
-            validatedDomain.setActualDomain(maxId);
-
-            validatedDomainRepo.insertValidatedDomain(validatedDomain);
-
-        } else {
-            if (maxId != actualDomain) {
+        if (maxId > 0) {
+            if (validatedDomain == null) {
+                validatedDomain = new ValidatedDomain();
+                validatedDomain.setDomainString(domain);
+                validatedDomain.setSimilarDomains(String.join(";;", response.getDominios_similares()));
+                System.out.println(response.getDominios_sim_punycode());
+                System.out.println(String.join(";;", response.getDominios_sim_punycode()));
+                validatedDomain.setSimilarDomainsPuny(String.join(";;", response.getDominios_sim_punycode()));
                 validatedDomain.setActualDomain(maxId);
-                validatedDomain.setSimilarDomains(String.join(";;",response.getDominios_similares()));
-                validatedDomain.setSimilarDomainsPuny(String.join(";;",response.getDominios_sim_punycode()));
-                validatedDomainRepo.updateValidatedDomain(validatedDomain);
+
+                validatedDomainRepo.insertValidatedDomain(validatedDomain);
+
+            } else {
+                if (maxId != actualDomain) {
+                    validatedDomain.setActualDomain(maxId);
+                    validatedDomain.setSimilarDomains(String.join(";;", response.getDominios_similares()));
+                    validatedDomain.setSimilarDomainsPuny(String.join(";;", response.getDominios_sim_punycode()));
+                    validatedDomainRepo.updateValidatedDomain(validatedDomain);
+                }
             }
         }
 
