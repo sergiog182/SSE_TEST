@@ -90,39 +90,41 @@ La aplicación está construida pensando en un despliegue más fácil, utilizand
 
 Una vez se termine la ejecución de dicho comando, se instancian todos los contenedores anteriormente mencionados y se encontrarán en la misma red.
 
-!! imagen docker compose !!
+![Docker compose](media/docker-compose.png)
 
 ### PgAdmin
 
 Adicionalmente, para hacer más fácil la gestión de base de datos, se agregó un contenedor con la imagen de PgAdmin 4, el cual debe ser configurado para agregar el servidor de la base de datos Domain:
 
-!!Imagen Pgadmin 1!!
+![PgAdmin1](media/pgAdmin_1.png)
 
-!!Imagen Pgadmin 2!!
+![PgAdmin2](media/pgAdmin_2.png)
+
+> :warning: El password del usuario postgres es **mysecretpassword**
 
 ## Como ejecutar sus pruebas
 
 Para ejecutar las pruebas, una vez el ambiente esté funcionando, el primer paso que se debe realizar, es cargar los datos en postgres, para esto se creó la opción en el front **Upload domains** en el cual se solicita un archivo TXT con los dominios que se desean agregar:
 
-!!! Imagen !!!
+![UploadDomains](media/uploadDomains.png)
 
 Después las opciones para buscar dominios similares y buscar dominios exactos, estarán disponibles para ser utilizadas:
 
-!!! Imagen validar dominios !!!
+![ValidateDomains](media/validateDomains.png)
 
 ## CURL para utilizar API
 
 Para facilitar el entendimiento del API desarrollada, se utilizó un plugin para generar la documentación swagger de los endpoints creados en el API (http://localhost:8080/swagger-ui.html#/main-controller):
 
-!!! Imagen Swagger !!!
+![SwaggerUI](media/swaggerUI.png)
 
 Esto facilita el uso de una herramienta que permita probar servicios REST como postman:
 
-!!! Imagen Postman !!!
+![SwaggerUI](media/postman.png)
 
 ## Genere un diagrama de arquitectura de la solución
 
-!!! Imagen arquitectura solución !!!
+![Arquitectura](media/DiagramaDespliegue.png)
 
 ## Un diagrama de cómo sería la estrategia de CI/CD que usted propone
 
@@ -134,7 +136,7 @@ Para manejar la estrategia de CI/CD, es necesario aclarar que se plante el uso d
 
 Y se plantea el uso de la metodologia de trabajo colaborativo GitFlow (https://www.atlassian.com/es/git/tutorials/comparing-workflows/gitflow-workflow):
 
-!!! Imagen GitFlow !!!
+![gitFlow](media/gitFlow.svg)
 
 Partiendo de estos principios, se plantea el uso de Jenkins para la creación y manejo de los pipeline encargados de dichas tareas, de la siguiente manera:
 
