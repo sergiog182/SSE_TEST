@@ -136,7 +136,7 @@ Para manejar la estrategia de CI/CD, es necesario aclarar que se plante el uso d
 
 Y se plantea el uso de la metodologia de trabajo colaborativo GitFlow (https://www.atlassian.com/es/git/tutorials/comparing-workflows/gitflow-workflow):
 
-![gitFlow](media/gitFlow.svg)
+![gitFlow](media/gitflow.png)
 
 Partiendo de estos principios, se plantea el uso de Jenkins para la creación y manejo de los pipeline encargados de dichas tareas, de la siguiente manera:
 
