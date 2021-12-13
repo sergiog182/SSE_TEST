@@ -92,6 +92,16 @@ Una vez se termine la ejecución de dicho comando, se instancian todos los conte
 
 ![Docker compose](media/docker-compose.png)
 
+### URLs desplegadas
+
+Cuando se despliegan los contenedores con o sin docker compose, las URL a tener en cuenta son:
+
+```
+:gear: API: http://localhost:8080
+:camera: FrontEnd: http://localhost
+:floppy_disk: PgAdmin: http://localhost:8081
+```
+
 ### PgAdmin
 
 Adicionalmente, para hacer más fácil la gestión de base de datos, se agregó un contenedor con la imagen de PgAdmin 4, el cual debe ser configurado para agregar el servidor de la base de datos Domain:
